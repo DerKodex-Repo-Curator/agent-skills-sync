@@ -1,0 +1,155 @@
+{
+  "name": "agent-skills-sync",
+  "displayName": "Agent Skills Sync",
+  "description": "Keep your personal AI agent skills (Claude Code, Codex, Cursor) synchronized across all of your computers via your own GitHub repository.",
+  "version": "0.2.0",
+  "publisher": "Gregor-von-Vitek",
+  "license": "MIT",
+  "icon": "media/icon.png",
+  "galleryBanner": {
+    "color": "#4F46E5",
+    "theme": "dark"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Gregor-von-Vitek/agent-skills-sync"
+  },
+  "engines": {
+    "vscode": "^1.90.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "keywords": [
+    "claude",
+    "claude code",
+    "skills",
+    "sync",
+    "ai",
+    "agent"
+  ],
+  "extensionKind": [
+    "ui",
+    "workspace"
+  ],
+  "capabilities": {
+    "virtualWorkspaces": true,
+    "untrustedWorkspaces": {
+      "supported": true
+    }
+  },
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "contributes": {
+    "commands": [
+      {
+        "command": "agentSkillsSync.setup",
+        "title": "Set Up / Change Repository",
+        "category": "Agent Skills Sync"
+      },
+      {
+        "command": "agentSkillsSync.syncNow",
+        "title": "Sync Now",
+        "category": "Agent Skills Sync"
+      },
+      {
+        "command": "agentSkillsSync.resolveConflicts",
+        "title": "Resolve Conflicts",
+        "category": "Agent Skills Sync"
+      },
+      {
+        "command": "agentSkillsSync.openRepository",
+        "title": "Open Repository on GitHub",
+        "category": "Agent Skills Sync"
+      },
+      {
+        "command": "agentSkillsSync.showLog",
+        "title": "Show Log",
+        "category": "Agent Skills Sync"
+      },
+      {
+        "command": "agentSkillsSync.openMenu",
+        "title": "Open Sync Menu",
+        "category": "Agent Skills Sync"
+      }
+    ],
+    "configuration": {
+      "title": "Agent Skills Sync",
+      "properties": {
+        "agentSkillsSync.agents.claude.enabled": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Synchronize **Claude Code** skills."
+        },
+        "agentSkillsSync.agents.claude.path": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "markdownDescription": "Local Claude Code skills directory. Leave empty for the default `~/.claude/skills`. Supports `~`."
+        },
+        "agentSkillsSync.agents.codex.enabled": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Synchronize **Codex** skills."
+        },
+        "agentSkillsSync.agents.codex.path": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "markdownDescription": "Local Codex skills directory. Leave empty for the default `~/.codex/skills`. Supports `~`."
+        },
+        "agentSkillsSync.agents.cursor.enabled": {
+          "type": "boolean",
+          "default": true,
+          "markdownDescription": "Synchronize **Cursor** skills."
+        },
+        "agentSkillsSync.agents.cursor.path": {
+          "type": "string",
+          "default": "",
+          "scope": "machine",
+          "markdownDescription": "Local Cursor skills directory. Leave empty for the default `~/.cursor/skills`. Supports `~`."
+        },
+        "agentSkillsSync.autoSync": {
+          "type": "boolean",
+          "default": true,
+          "description": "Automatically synchronize skills on startup, on file changes and periodically. When disabled, use the 'Sync Now' command."
+        },
+        "agentSkillsSync.pollIntervalMinutes": {
+          "type": "number",
+          "default": 5,
+          "minimum": 1,
+          "maximum": 720,
+          "description": "How often (in minutes) to check the remote repository for changes made on other devices."
+        },
+        "agentSkillsSync.debounceSeconds": {
+          "type": "number",
+          "default": 3,
+          "minimum": 1,
+          "maximum": 300,
+          "description": "How long to wait after a local file change before uploading (debounce)."
+        }
+      }
+    }
+  },
+  "scripts": {
+    "build": "node esbuild.mjs",
+    "watch": "node esbuild.mjs --watch",
+    "typecheck": "tsc --noEmit",
+    "test": "vitest run",
+    "pretest:integration": "npm run build && tsc -p tsconfig.integration.json",
+    "test:integration": "node out-test/test/integration/runTest.js",
+    "vscode:prepublish": "node esbuild.mjs --production",
+    "package": "vsce package"
+  },
+  "devDependencies": {
+    "@types/node": "^20.14.0",
+    "@types/vscode": "^1.90.0",
+    "@vscode/test-electron": "^2.4.1",
+    "@vscode/vsce": "^3.1.0",
+    "esbuild": "^0.24.0",
+    "typescript": "^5.5.4",
+    "vitest": "^2.1.9"
+  }
+}
