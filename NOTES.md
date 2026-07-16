@@ -1,7 +1,7 @@
 # Interní poznámky
 
-> Tento soubor je jen pro mě — není součástí VSIX balíčku ani se necommituje do gitu
-> (je v `.vscodeignore` i `.gitignore`).
+> Tento soubor je jen pro mě — není součástí VSIX balíčku
+> (je v `.vscodeignore`).
 
 ## Nápady / TODO
 
@@ -12,5 +12,8 @@
 -
 
 ## Odkazy
+https://marketplace.visualstudio.com/items?itemName=Gregor-von-Vitek.agent-skills-sync&ssr=false#overview
 
--
+https://open-vsx.org/user-settings/extensions
+
+npx vsce publish
